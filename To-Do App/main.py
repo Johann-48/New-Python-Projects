@@ -5,12 +5,11 @@ items = []
 # Model of data Creation
 class Item:
     def __init__(self, title):
-        self.title = title.strip().lower(   )
-        self.finished = False
+        self.title = title.strip().lower()
+        self.status = False
 
 # Creates and inserts samples
-n1 = Item('tidy')
-items.append(n1)
+
 
 # FUNCTIONS
 # Add Item Function
@@ -24,9 +23,22 @@ def deleteItem(title):
         if i.title == title:
             items.remove(i)
             return True
-        else:
-            return False
-        
+    return False
+
+def changeStatus(title):
+    for i in items:
+        if i.title == title:
+            if i.status == False:
+                i.status = True
+            else:
+                i.status = False
+            return True
+    return False
+
+def showList():
+    for i in items:
+        print(f'- {i.title} // Status: {i.status}')
+
 
 while True:
     title = input('Insert an item: ')
@@ -34,30 +46,39 @@ while True:
 
     while True:
         # Asks the user if it wants to stop
-        continue_input = input('Do you want to add another item? (y/n/Show List/Delete): ').strip().lower()
-        if continue_input == 'n':
+        continue_input = input('What do you want to do? (Create/End/Show List/Delete/Change Status): ').strip().lower()
+
+        if continue_input == 'create':
             break
-        elif continue_input == 'y':
+
+        elif continue_input == 'e':
             break
+
         elif continue_input == 'show list':
-            for i in items:
-                print(f'- {i.title}')
+            showList()
+
         elif continue_input == 'delete':
-                
-            itemTitle = str(input('Insert the item you want to delete: '))
+            itemTitle = str(input('Insert the item you want to delete: ')).strip().lower()
             if deleteItem(itemTitle):
                 print('Item deleted successfully')
             else:
                 print("Item not found")
+        
+        elif continue_input == 'change status':
+            itemTitle = str(input('Insert the item you want to change the status: ')).strip().lower()
+            if changeStatus(itemTitle):
+                print('Item changed its status')
+            else:
+                print("Item not found")
+            
         else:
             print('Non-existent option')
         
     if continue_input == 'n':
         break
 
+
+
+
 # Prints the To-Do List
-for i in items:
-    print(f'- {i.title}')
-
-
-print(items)
+showList()
