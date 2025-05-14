@@ -37,7 +37,11 @@ def changeStatus(title):
 
 def showList():
     for i in items:
-        print(f'- {i.title} // Status: {i.status}')
+        if i.status == True:
+            statusStr = 'Done'
+        elif i.status == False:
+            statusStr = 'Not done'
+        print(f'- {i.title} // Status: {statusStr}')
 
 
 while True:
