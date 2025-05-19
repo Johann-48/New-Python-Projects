@@ -1,19 +1,20 @@
-from datetime import datetime
 
 # List of Items
 items = []
 
 # Model of item creation
 class Item:
-    def __init__(self, title, description):
+    def __init__(self, title, description, dueDate, priority):
         self.title = title.strip().lower()
         self.description = description
+        self.dueDate = dueDate
+        self.priority = priority
         self.status = False
 
 # FUNCTIONS
 # Add Item Function
 def addItem(title, description, dueDate, priority):
-    new_item = Item(str(title), str(description))
+    new_item = Item(str(title), str(description), str(dueDate), int(priority))
     items.append(new_item)
 
 # Add Delete Item Function
@@ -42,7 +43,20 @@ def showList():
             statusStr = 'Done'
         elif i.status == False:
             statusStr = 'Not done'
-        print(f'- {i.title} // Status: {statusStr}')
+
+        match i.priority:
+            case 1:
+                priorityStr = 'Not Important'
+            case 2:
+                priorityStr = 'Keep In Mind'
+            case 3:
+                priorityStr = 'Better Do'
+            case 4:
+                priorityStr = 'Important'
+            case 5:
+                priorityStr = 'Urgent'
+
+        print(f'- {i.title} // Status: {statusStr} // Due Date: {i.dueDate} // Priority: {priorityStr}')
 
 # Add Show Description Function
 def showDescription(title):
@@ -63,12 +77,19 @@ while True:
     match default:
 
         case 'create':
-            sample = str(input('Insert a item: '))
-            sampleDescription = str(input('Insert item description(If it doesnt have one, type NO): '))
-            if sampleDescription != 'NO':
-                addItem(sample, sampleDescription)
-            else:
-                addItem(sample, 'Description wasnt created')
+            sampleTitle = str(input('Insert a item: '))
+            sampleDescription = str(input('Insert item description (If it doesnt have one, type NO): '))
+            sampleDueDate = str(input('Insert a Due Date (Format: DD/MM/YYYY)(If no Due Date, type NO): '))
+            samplePriority = int(input('Insertr the item priority (Type from 1 to 5, 1 being not important, and 5 being urgent): '))
+
+
+            if sampleDescription == 'NO':
+                sampleDescription = 'Description wasnt created'
+            if sampleDueDate == 'NO':
+                sampleDueDate = 'Due Date wasnt created'
+
+            addItem(sampleTitle, sampleDescription, sampleDueDate, samplePriority)
+                
 
         case 'end':
             break
@@ -96,7 +117,6 @@ while True:
                 print('DESCRIPTION SHOWED')
             else:
                 print("Item not found")
-            
             
         case _:
             print('Non-existent option')
