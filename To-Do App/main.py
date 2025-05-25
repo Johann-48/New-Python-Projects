@@ -14,7 +14,12 @@ class Item:
 # FUNCTIONS
 # Add Item Function
 def addItem(title, description, dueDate, priority):
-    new_item = Item(str(title), str(description), str(dueDate), int(priority))
+    if description == 'NO':
+        description = 'Description was not created'
+    if dueDate == 'NO':
+        dueDate = 'Due Date was not created'
+
+    new_item = Item(str(title), str(description), str(dueDate), str(priority))
     items.append(new_item)
 
 # Add Delete Item Function
@@ -70,6 +75,7 @@ def showDescription(title):
 # RUNNING PROGRAM
 
 while True:
+    break
     # Asks what the user wants to do
     default = input('What do you want to do? (Create/End/Show List/Delete/Change Status/Show Description): ').strip().lower()
 
@@ -81,12 +87,6 @@ while True:
             sampleDescription = str(input('Insert item description (If it doesnt have one, type NO): '))
             sampleDueDate = str(input('Insert a Due Date (Format: DD/MM/YYYY)(If no Due Date, type NO): '))
             samplePriority = int(input('Insertr the item priority (Type from 1 to 5, 1 being not important, and 5 being urgent): '))
-
-
-            if sampleDescription == 'NO':
-                sampleDescription = 'Description wasnt created'
-            if sampleDueDate == 'NO':
-                sampleDueDate = 'Due Date wasnt created'
 
             addItem(sampleTitle, sampleDescription, sampleDueDate, samplePriority)
                 
