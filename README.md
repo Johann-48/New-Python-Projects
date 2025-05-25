@@ -1,7 +1,7 @@
 # New-Python-Projects
 2025 - Current Python Projects
 
-Current Project: To-Do List App - v0.3.1
+Current Project: To-Do List App - v0.3.2
 
 Planned Versions at the end of each:
 
